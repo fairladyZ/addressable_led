@@ -11,8 +11,8 @@
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(50, 12, NEO_RGB + NEO_KHZ800);
 
-int purpleColor[] = {80, 0, 200};
-int orangeColor[] = {255, 100, 20};
+int purpleColor[] = {80, 0, 255};
+int orangeColor[] = {255, 50, 0};
 
 int startColor[] = {255, 0, 0};
 int endColor[] = {0, 255, 0};
@@ -64,10 +64,13 @@ void setup() {
 }
 
 void loop() {
-  hallowCycle(100);
-  //colorHalf(1, strip.Color(80, 0, 200));
-  //colorHalf(0, strip.Color(50, 0, 255));
-  //strip.show();
+  hallowCycle(1000);
+  /*
+  colorHalf(0, strip.Color(0, 0, 255));
+  colorHalf(1, strip.Color(80, 0, 255));
+  strip.show();
+  while(1);
+  /**/
 }
 
 uint32_t getColorForLoop(int percent){
@@ -98,7 +101,7 @@ void hallowCycle(uint8_t wait) {
 }
 
 
-uint32_t halloWheel(byte wheelPos) {
+uint32_t halloWheel2(byte wheelPos) {
   wheelPos = 255 - wheelPos;
   
   uint32_t color;
@@ -109,6 +112,38 @@ uint32_t halloWheel(byte wheelPos) {
   int fadeIndex = wheelPos % 16;
 
   color = getColorForLoop(fade[fadeIndex]);
+  
+  return color;
+}
+
+uint32_t halloWheel(byte wheelPos) {
+  
+  wheelPos = 255 - wheelPos;
+  
+  uint32_t color;
+  
+  int fade[] = {0,0,0,0,0,1,1,1,
+                1,1,2,2,2,2,2,0};
+  
+  //int fade[] = {0,0,0,0,0,1,1,1,
+  //              2,2,2,2,2,1,1,1};
+  
+  int fadeIndex = wheelPos % 16;
+
+  switch(fade[fadeIndex]) {
+    case 0:
+      color = strip.Color(purpleColor[0], purpleColor[1], purpleColor[2]);
+      //color = strip.Color(255, 0, 0);
+    break;
+    case 1:
+      color = strip.Color(orangeColor[0], orangeColor[1], orangeColor[2]);
+      //color = strip.Color(255, 255, 255);
+    break;
+    case 2:
+      color = strip.Color(0, 255, 0);
+      //color = strip.Color(0, 0, 255);
+    break;
+  }
   
   return color;
 }
