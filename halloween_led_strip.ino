@@ -1,6 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 
-//#define PIN 6
+#define PIN 6 //This is for the sealed box 
+//#define PIN 12  //This is for the pill bottle mode
 
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = pin number (most are valid)
@@ -9,7 +10,12 @@
 //   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(50, 12, NEO_RGB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(50, PIN, NEO_RGB + NEO_KHZ800);
+
+int delayval = 500; // delay for half a second
+
+const int ledPin = 13; // the pin that the LED is attached to
+int incomingByte;      // a variable to read incoming serial data into
 
 int purpleColor[] = {80, 0, 255};
 int orangeColor[] = {255, 50, 0};
@@ -53,6 +59,12 @@ void setColors(int selection){
 
 void setup() {
   Serial.begin(9600);
+  Serial.println("Start LED strip");
+  
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, HIGH);
+  
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
   
@@ -60,7 +72,7 @@ void setup() {
   //0 is debug/christmas
   //1 is halloween
   //2 is 4th of july but only two colors
-  setColors(1);
+  setColors(2);
 }
 
 void loop() {
@@ -83,6 +95,70 @@ void loop() {
   strip.show();
   while(1);
   /**/
+
+  
+  
+  // see if there's incoming serial data:
+  if (Serial.available() > 0) {
+    // read the oldest byte in the serial buffer:
+    incomingByte = Serial.read();
+    
+    // if it's a capital B go crazy blinky
+    if (incomingByte == 'B') {
+      Serial.println("cRaZy BlInKy MoDe");
+      theaterChase(strip.Color(127, 127, 127), 100); // White
+      Serial.println("Mode Done  READY");
+    } 
+    // if it's an T set the Teal Color
+    if (incomingByte == 'T') {
+      Serial.println("Teal Mode");
+      colorWipe(strip.Color(0, 150, 200), 50); // Red
+      Serial.println("Mode Done  READY");
+    }
+    // if it's an R do the rainbow chase
+    if (incomingByte == 'R') {
+      Serial.println("Chasy Rainbow Mode");
+      theaterChaseRainbow(50);
+      Serial.println("Mode Done  READY");
+    }
+    // if it's an A do the rainbow 
+    if (incomingByte == 'A') {
+      Serial.println("Just Rainbow Mode");
+      rainbow(20);
+      Serial.println("Mode Done  READY");
+    }
+    // if it's an T do the rainbow cycle
+    if (incomingByte == 'T') {
+      Serial.println("Rainbow Cycle Mode");
+      rainbowCycle(20);
+      Serial.println("Mode Done  READY");
+    }
+    // if it's an H do the Halloweel
+    if (incomingByte == 'H') {
+      Serial.println("Halloweel Mode");
+      hallowCycle(1000);
+      Serial.println("Mode Done  READY");
+    }
+    // if it's an 4 do the 4th ofjuly
+    if (incomingByte == '4') {
+      Serial.println("Stars and Stripes Mode");
+      rainbowCycle(20);
+      Serial.println("Mode Done  READY");
+    }
+    // if it's an C do the Christmas
+    if (incomingByte == 'C') {
+      Serial.println("Christmas Mode");
+      rainbowCycle(20);
+      Serial.println("Mode Done  READY");
+    }
+    // if it's an E do the Easter
+    if (incomingByte == 'E') {
+      Serial.println("Easter Mode");
+      rainbowCycle(20);
+      Serial.println("Mode Done  READY");
+    }
+  }
+  
 }
 
 uint32_t getColorForLoop(int percent){
