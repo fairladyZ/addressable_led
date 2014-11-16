@@ -117,6 +117,14 @@ void processCommand(char *command, int length)
         sprintf(response, "r%02d%06lX", index, color);
         Serial.println(response);
       } else 
+      if (length == 7) {
+        red   = ahtoi(command[1], command[2]);
+        green = ahtoi(command[3], command[3]);
+        blue  = ahtoi(command[5], command[4]);
+        
+        color = strip.Color(red, green, blue);
+        colorWipe(color, 0);
+      } else
       if(length == 9) {
         index = atoi(command[1], command[2]);
         red   = ahtoi(command[3], command[4]);

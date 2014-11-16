@@ -79,22 +79,12 @@ void setup() {
 
 void loop() {
   
-  /*
-  //Normal mode
-  uint32_t color = strip.Color(0, 255, 255);
-  uint32_t blank = strip.Color(0,0,0);
-  colorWipe(color, 400);
-  delaySeconds(66);
-  colorWipe(blank, 400);
-  delay(100);
-  */  
-  //Halloween
-  //hallowCycle(1000);
-
-
   /*testing
-  colorHalf(0, strip.Color(0, 0, 255));
-  colorHalf(1, strip.Color(80, 0, 255));
+  colorWipe(strip.Color(0, 0, 0), 0);
+  
+  
+  colorHalf(0, strip.Color(255, 255, 0));
+  colorHalf(1, strip.Color(255, 224, 0));
   strip.show();
   while(1);
   /**/
