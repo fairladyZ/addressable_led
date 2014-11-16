@@ -69,6 +69,15 @@ void processCommand(char *command, int length)
     case '4':
       mode = 5;
     break;
+    
+    case 'p':
+      if(length == 1) {
+        Serial.println(paused);
+      } else if (length == 2) {
+        paused = command[1] - '0';
+      }
+    break;
+    
     case 'm': //mode  "m8f"
       if(length == 1) {
         Serial.println(mode);

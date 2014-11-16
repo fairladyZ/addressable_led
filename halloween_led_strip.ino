@@ -23,6 +23,7 @@ int startColor[] = {255, 0, 0};
 int endColor[] = {0, 255, 0};
 int mode = 1;
 int demoMode; //set mode to -1 for these
+int paused = 0;
 
 void setColors(int selection){
   startColor[0] = 0;
@@ -99,7 +100,11 @@ void loop() {
   /**/
 
   checkSerial();
-  runMode(mode);
+  if (!paused) {
+    runMode(mode);
+  } else {
+    delay(400);
+  }
   
 }
 
