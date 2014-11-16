@@ -1,4 +1,10 @@
 
+void delaySeconds(int seconds) {
+  for(;seconds > 0;seconds--){
+    delay(1000);
+  }
+}
+
 // Fill the dots one after the other with a color
 void colorWipe(uint32_t c, uint16_t wait) {
   for(uint16_t i=0; i<strip.numPixels(); i++) {

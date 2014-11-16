@@ -1,4 +1,5 @@
 #include <Adafruit_NeoPixel.h>
+#include "colors.h"
 
 #define PIN 6 //This is for the sealed box 
 //#define PIN 12  //This is for the pill bottle mode
@@ -17,11 +18,11 @@ int delayval = 500; // delay for half a second
 const int ledPin = 13; // the pin that the LED is attached to
 int incomingByte;      // a variable to read incoming serial data into
 
-int purpleColor[] = {80, 0, 255};
-int orangeColor[] = {255, 50, 0};
 
 int startColor[] = {255, 0, 0};
 int endColor[] = {0, 255, 0};
+int mode = 1;
+int demoMode; //set mode to -1 for these
 
 void setColors(int selection){
   startColor[0] = 0;
@@ -77,14 +78,15 @@ void setup() {
 
 void loop() {
   
+  /*
   //Normal mode
   uint32_t color = strip.Color(0, 255, 255);
   uint32_t blank = strip.Color(0,0,0);
   colorWipe(color, 400);
-  delay(55*1000);
+  delaySeconds(66);
   colorWipe(blank, 400);
   delay(100);
-
+  */  
   //Halloween
   //hallowCycle(1000);
 
@@ -96,68 +98,8 @@ void loop() {
   while(1);
   /**/
 
-  
-  
-  // see if there's incoming serial data:
-  if (Serial.available() > 0) {
-    // read the oldest byte in the serial buffer:
-    incomingByte = Serial.read();
-    
-    // if it's a capital B go crazy blinky
-    if (incomingByte == 'B') {
-      Serial.println("cRaZy BlInKy MoDe");
-      theaterChase(strip.Color(127, 127, 127), 100); // White
-      Serial.println("Mode Done  READY");
-    } 
-    // if it's an T set the Teal Color
-    if (incomingByte == 'T') {
-      Serial.println("Teal Mode");
-      colorWipe(strip.Color(0, 150, 200), 50); // Red
-      Serial.println("Mode Done  READY");
-    }
-    // if it's an R do the rainbow chase
-    if (incomingByte == 'R') {
-      Serial.println("Chasy Rainbow Mode");
-      theaterChaseRainbow(50);
-      Serial.println("Mode Done  READY");
-    }
-    // if it's an A do the rainbow 
-    if (incomingByte == 'A') {
-      Serial.println("Just Rainbow Mode");
-      rainbow(20);
-      Serial.println("Mode Done  READY");
-    }
-    // if it's an T do the rainbow cycle
-    if (incomingByte == 'T') {
-      Serial.println("Rainbow Cycle Mode");
-      rainbowCycle(20);
-      Serial.println("Mode Done  READY");
-    }
-    // if it's an H do the Halloweel
-    if (incomingByte == 'H') {
-      Serial.println("Halloweel Mode");
-      hallowCycle(1000);
-      Serial.println("Mode Done  READY");
-    }
-    // if it's an 4 do the 4th ofjuly
-    if (incomingByte == '4') {
-      Serial.println("Stars and Stripes Mode");
-      rainbowCycle(20);
-      Serial.println("Mode Done  READY");
-    }
-    // if it's an C do the Christmas
-    if (incomingByte == 'C') {
-      Serial.println("Christmas Mode");
-      rainbowCycle(20);
-      Serial.println("Mode Done  READY");
-    }
-    // if it's an E do the Easter
-    if (incomingByte == 'E') {
-      Serial.println("Easter Mode");
-      rainbowCycle(20);
-      Serial.println("Mode Done  READY");
-    }
-  }
+  checkSerial();
+  runMode(mode);
   
 }
 
