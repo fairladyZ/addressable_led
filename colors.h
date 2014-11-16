@@ -1,5 +1,13 @@
 extern int blankColor[];
-extern int lightTealColor[3];
-extern int tealColor[3];
-extern int purpleColor[3];
-extern int orangeColor[3];
+extern int whiteColor[];
+
+extern int lightTealColor[];
+extern int tealColor[];
+
+extern int purpleColor[];
+extern int orangeColor[];
+
+extern int redColor[];
+extern int greenColor[];
+extern int blueColor[];
+
