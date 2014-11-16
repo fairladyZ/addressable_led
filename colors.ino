@@ -24,3 +24,17 @@ uint32_t stripColorFromColor(int* color){
 }
 
 
+uint32_t getColorBlend(int* color1, int* color2, int percent){
+  if (percent > 100) percent = 200 - percent;
+  
+  int diffR = color2[0] - color1[0];
+  int diffG = color2[1] - color1[1];
+  int diffB = color2[2] - color1[2];
+  
+  diffR = (diffR * percent) / 100;
+  diffG = (diffG * percent) / 100;
+  diffB = (diffB * percent) / 100;
+
+  return strip.Color(color1[0] + diffR, color1[1] + diffG, color1[2] + diffB);
+}
+

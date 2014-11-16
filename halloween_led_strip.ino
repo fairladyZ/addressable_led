@@ -13,51 +13,14 @@
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(50, PIN, NEO_RGB + NEO_KHZ800);
 
-int delayval = 500; // delay for half a second
-
 const int ledPin = 13; // the pin that the LED is attached to
-int incomingByte;      // a variable to read incoming serial data into
 
-
-int startColor[] = {255, 0, 0};
-int endColor[] = {0, 255, 0};
 int mode = 1;
 int demoMode; //set mode to -1 for these
 int paused = 0;
 
-void setColors(int selection){
-  startColor[0] = 0;
-  startColor[1] = 0;
-  startColor[2] = 0;
 
-  endColor[0] = 0;
-  endColor[1] = 0;
-  endColor[2] = 0;
-  
-  switch(selection) {
-    case 1:
-      startColor[0] = purpleColor[0];
-      startColor[1] = purpleColor[1];
-      startColor[2] = purpleColor[2];
 
-      endColor[0] = orangeColor[0];
-      endColor[1] = orangeColor[1];
-      endColor[2] = orangeColor[2];
-    break;
-    case 2:
-      startColor[0] = 255;
-      endColor[2] = 255;
-    break;
-    case 3:
-    break;
-    
-    default:
-    case 0:
-      startColor[0] = 255;
-      endColor[1] = 255;
-    break;
-  }  
-}
 
 void setup() {
   Serial.begin(9600);
@@ -70,11 +33,6 @@ void setup() {
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
   
-  //Choose color theme
-  //0 is debug/christmas
-  //1 is halloween
-  //2 is 4th of july but only two colors
-  setColors(2);
 }
 
 void loop() {
@@ -98,20 +56,6 @@ void loop() {
   
 }
 
-uint32_t getColorForLoop(int percent){
-  if (percent > 100) percent = 200 - percent;
-  
-  int diffR = endColor[0] - startColor[0];
-  int diffG = endColor[1] - startColor[1];
-  int diffB = endColor[2] - startColor[2];
-  
-  diffR = (diffR * percent) / 100;
-  diffG = (diffG * percent) / 100;
-  diffB = (diffB * percent) / 100;
-
-  return strip.Color(startColor[0] + diffR, startColor[1] + diffG, startColor[2] + diffB);
-}
-
 void hallowCycle(uint8_t wait) {
   uint16_t i, j;
 
@@ -125,22 +69,6 @@ void hallowCycle(uint8_t wait) {
   }
 }
 
-
-uint32_t halloWheel2(byte wheelPos) {
-  wheelPos = 255 - wheelPos;
-  
-  uint32_t color;
-  
-  int fade[] = {15,0,0,0,0,0,15,50,
-                85,100,100,100,100,100,85,50};
-  
-  int fadeIndex = wheelPos % 16;
-
-  color = getColorForLoop(fade[fadeIndex]);
-  
-  return color;
-}
-
 uint32_t halloWheel(byte wheelPos) {
   
   wheelPos = 255 - wheelPos;
@@ -149,10 +77,7 @@ uint32_t halloWheel(byte wheelPos) {
   
   int fade[] = {0,0,0,0,0,1,1,1,
                 1,1,2,2,2,2,2,0};
-  
-  //int fade[] = {0,0,0,0,0,1,1,1,
-  //              2,2,2,2,2,1,1,1};
-  
+    
   int fadeIndex = wheelPos % 16;
 
   switch(fade[fadeIndex]) {
