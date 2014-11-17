@@ -5,12 +5,41 @@ void delaySeconds(int seconds) {
   }
 }
 
+// Fill strip
+void colorFill(uint32_t c) {
+  for(uint16_t i=0; i<strip.numPixels(); i++) {
+      strip.setPixelColor(i, c);
+  }
+  strip.show();
+}
+
 // Fill the dots one after the other with a color
 void colorWipe(uint32_t c, uint16_t wait) {
   for(uint16_t i=0; i<strip.numPixels(); i++) {
       strip.setPixelColor(i, c);
       strip.show();
       delay(wait);
+  }
+}
+
+// Fill the dots one after the other with a color
+void colorWipe(uint32_t c1, uint32_t c2, uint16_t wait) {
+  for(uint16_t i=0; i<strip.numPixels(); i++) {
+    if(i % 2 == 0) strip.setPixelColor(i, c1);
+    if(i % 2 == 1) strip.setPixelColor(i, c2);
+    strip.show();
+    delay(wait);
+  }
+}
+
+// Fill the dots one after the other with a color
+void colorWipe(uint32_t c1, uint32_t c2, uint32_t c3, uint16_t wait) {
+  for(uint16_t i=0; i<strip.numPixels(); i++) {
+    if(i % 3 == 0) strip.setPixelColor(i, c1);
+    if(i % 3 == 1) strip.setPixelColor(i, c2);
+    if(i % 3 == 2) strip.setPixelColor(i, c3);
+    strip.show();
+    delay(wait);
   }
 }
 

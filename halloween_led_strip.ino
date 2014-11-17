@@ -15,7 +15,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(50, PIN, NEO_RGB + NEO_KHZ800);
 
 const int ledPin = 13; // the pin that the LED is attached to
 
-int mode = 1;
+int mode = 0;
 int demoMode; //set mode to -1 for these
 int paused = 0;
 

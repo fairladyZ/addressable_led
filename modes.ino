@@ -92,21 +92,21 @@ void runHalloween()
 void runForthOfJuly()
 {
   Serial.println("Stars and Stripes Mode");
-  colorWipe(strip.Color(0, 0, 255), 100);
+  colorWipe(strip.Color(255, 0, 0), strip.Color(255, 255, 255), strip.Color(0, 0, 255), 100);
   Serial.println("Mode Done  READY");
 }
 
 void runChristmas()
 {
   Serial.println("Christmas Mode");
-  colorWipe(strip.Color(0, 255, 0), 100);
+  colorWipe(strip.Color(255, 0, 0), strip.Color(0, 255, 0), 100);
   Serial.println("Mode Done  READY");
 }
 
 void runEaster()
 {
   Serial.println("Easter Mode");
-  colorWipe(strip.Color(255, 127, 127), 100);
+  colorWipe(stripColorFromColor(magentaColor), stripColorFromColor(yellowColor), stripColorFromColor(tealColor), 100);
   Serial.println("Mode Done  READY");
 }
 

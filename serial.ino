@@ -1,20 +1,18 @@
 
 
 void runTests(){
-    
-  strip.setPixelColor(0, 255, 0, 0);
-  strip.setPixelColor(1, 0, 255, 0);
-  strip.setPixelColor(2, 0, 0, 255);
-
-  strip.setPixelColor(10, 255, 0, 0);
-  strip.setPixelColor(11, 0, 255, 0);
-  strip.setPixelColor(12, 0, 0, 255);
-  
-  strip.setPixelColor(20, 255, 0, 0);
-  strip.setPixelColor(21, 0, 255, 0);
-  strip.setPixelColor(22, 0, 0, 255);
-  
-  strip.show();
+  Serial.println("Running tests");
+  /*
+  colorFill(strip.Color(255, 0, 0));
+  delay(2000);    
+  colorFill(strip.Color(0, 255, 0));
+  delay(2000);    
+  colorFill(strip.Color(0, 0, 255));
+  delay(2000);    
+  colorFill(strip.Color(255, 255, 255));
+  delay(2000);    
+  colorFill(strip.Color(0, 0, 0));
+    */
 }
 
 void checkSerial(){
