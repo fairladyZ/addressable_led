@@ -23,13 +23,14 @@ void checkSerial(){
   
   while (Serial.available() > 0) {
     nextByte = Serial.read();
-    if(nextByte == '\n'){
+    if(nextByte == '\n' || nextByte == '.'){
       command[commandIndex] = '\0';
       processCommand(command, commandIndex);
       commandIndex = 0;
     } else {
       command[commandIndex] = nextByte;
       commandIndex++;      
+      if(commandIndex < 9) commandIndex == 9;
     }
   }
 }
@@ -54,18 +55,23 @@ void processCommand(char *command, int length)
     //TODO: remove johns old ones
     case 'T':
       mode = 1;
+      colorFill(strip.Color(0,0,0));
     break;
     case 'H':
       mode = 2;
+      colorFill(strip.Color(0,0,0));
     break;
     case 'C':
       mode = 3;
+      colorFill(strip.Color(0,0,0));
     break;
     case 'E':
       mode = 4;
+      colorFill(strip.Color(0,0,0));
     break;
     case '4':
       mode = 5;
+      colorFill(strip.Color(0,0,0));
     break;
     
     case 'p':
