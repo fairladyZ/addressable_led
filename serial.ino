@@ -30,7 +30,7 @@ void checkSerial(){
     } else {
       command[commandIndex] = nextByte;
       commandIndex++;      
-      if(commandIndex < 9) commandIndex == 9;
+      if(commandIndex > 9) commandIndex = 9;
     }
   }
 }
@@ -123,8 +123,8 @@ void processCommand(char *command, int length)
       } else 
       if (length == 7) {
         red   = ahtoi(command[1], command[2]);
-        green = ahtoi(command[3], command[3]);
-        blue  = ahtoi(command[5], command[4]);
+        green = ahtoi(command[3], command[4]);
+        blue  = ahtoi(command[5], command[6]);
         
         color = strip.Color(red, green, blue);
         colorWipe(color, 0);
